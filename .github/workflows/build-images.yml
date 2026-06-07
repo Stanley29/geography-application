@@ -23,18 +23,24 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      # -----------------------------
+      # Build DB image
+      # -----------------------------
       - name: Build and push DB image
         uses: docker/build-push-action@v5
         with:
           context: ./01_DB
-          file: ./01_DB/Dockerfile
+          file: ./01_DB/Dockerfile.single
           push: true
           tags: serhii128/geoactions-db:latest
 
+      # -----------------------------
+      # Build Server image
+      # -----------------------------
       - name: Build and push Server image
         uses: docker/build-push-action@v5
         with:
           context: ./02_Server
-          file: ./02_Server/Dockerfile
+          file: ./02_Server/Dockerfile.prod
           push: true
           tags: serhii128/geoactions-server:latest
